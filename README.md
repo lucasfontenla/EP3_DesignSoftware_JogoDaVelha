@@ -1,4 +1,4 @@
-# EP3_tic_tac_toe
+# EP3 - Jogo da Velha
 
 EP3 de design de software - ENGENHARIA B
 Alunos: Lucas Fontenla & Victor Hugo Leal

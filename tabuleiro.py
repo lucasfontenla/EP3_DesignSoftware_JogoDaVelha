@@ -40,15 +40,24 @@ class Tabuleiro:
         conteudo_label = tk.StringVar()
         conteudo_label.set(display)
         global label1
-        label1.configure(textvariable=conteudo_label)
+        label1.configure(textvariable=conteudo_label, anchor="w")
     
     def command_botao(self, i):
         print("Click", i)
+
+    def limpa_tabuleiro(self):
+        for i in range(0,3):
+            for j in range(0,3):
+                tela.gera_botoes((i, j), "")
         
     def iniciar(self):
         self.window.mainloop()
-        
+
+#teste das funções        
 tela = Tabuleiro()
 tela.gera_label("Legenda Teste")
-tela.gera_botoes((0,1), "X")
+for i in range(0,3):
+    for j in range(0,3):
+        tela.gera_botoes((i, j), (i,j))
+#tela.limpa_tabuleiro()
 tela.iniciar()

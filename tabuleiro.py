@@ -21,9 +21,8 @@ class Tabuleiro:
         for i in range(0, 3):
             for j in range(0, 3):
                 botoes[i][j] = tk.Button(self.window)
-                botoes[i][j].configure(height=10, width=10)
+                botoes[i][j].configure(height=10, width=10, command=lambda botao=(i,j): self.command_botao(botao))
                 botoes[i][j].grid(row=i, column=j, sticky="NSEW")
-                botoes[i][j].config(text="")
         
         #labels
         global label1 
@@ -42,6 +41,9 @@ class Tabuleiro:
         conteudo_label.set(display)
         global label1
         label1.configure(textvariable=conteudo_label)
+    
+    def command_botao(self, i):
+        print("Click", i)
         
     def iniciar(self):
         self.window.mainloop()

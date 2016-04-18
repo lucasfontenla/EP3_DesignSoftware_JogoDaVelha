@@ -9,27 +9,34 @@ class Tabuleiro:
     def __init__(self):
         #window
         self.window = tk.Tk()
-        self.window.geometry("450x530")
-        
-        for k in range(0, 3): #gera as linhas e colunas
+        self.window.geometry("450x520")
+        for k in range(0, 3): #gera as linhas e colunas números 0, 1 e 2
             self.window.rowconfigure(k, minsize=150)
             self.window.columnconfigure(k, minsize=150)
-        self.window.rowconfigure(3, minsize=50) #linha para display das jogadas
-         
-        global label1 
-        label1 = tk.Label(self.window)
-        label1.configure(width=450, height=40)
-        #label1.grid(row=3, column=0, columnspan=3)
+        self.window.rowconfigure(3, minsize=40) #linha para display das jogadas
         
-    def gera_botoes(self): #lista com lista de linhas
-        self.botoes = [[0]*3]*3
-       
+        #buttons
+        global botoes
+        botoes = [[0]*3]*3
         for i in range(0, 3):
             for j in range(0, 3):
-                self.botoes[i][j] = tk.Button(self.window)
-                self.botoes[i][j].configure(height=10, width=10)
-                self.botoes[i][j].grid(row=i, column=j, sticky="NSEW")
+                botoes[i][j] = tk.Button(self.window)
+                botoes[i][j].configure(height=10, width=10)
+                botoes[i][j].grid(row=i, column=j, sticky="NSEW")
+                botoes[i][j].config(text="")
+        
+        #labels
+        global label1 
+        label1 = tk.Label(self.window)
+        label1.configure(width=60, height=1)
+        label1.grid(row=3, column=0, columnspan=3, sticky="W")
                 
+    def gera_botoes(self, posicao_tupla, letra):
+        conteudo_botao = tk.StringVar()
+        conteudo_botao.set(letra)
+        global botoes
+        botoes[posicao_tupla[0]][posicao_tupla[1]].config(textvariable=conteudo_botao)
+     
     def gera_label(self, display): 
         conteudo_label = tk.StringVar()
         conteudo_label.set(display)
@@ -40,6 +47,5 @@ class Tabuleiro:
         self.window.mainloop()
         
 tela = Tabuleiro()
-tela.gera_botoes()
 tela.gera_label("Legenda Teste")
 tela.iniciar()

@@ -11,13 +11,13 @@ class Tabuleiro:
         self.window = tk.Tk()
         self.window.geometry("450x520")
         for k in range(0, 3): #gera as linhas e colunas números 0, 1 e 2
-            self.window.rowconfigure(k, minsize=150) #configura 3 linhas
-            self.window.columnconfigure(k, minsize=150) #configura 3 colunas
+            self.window.rowconfigure(k, minsize=150)
+            self.window.columnconfigure(k, minsize=150)
         self.window.rowconfigure(3, minsize=40) #linha para display das jogadas
         
         #buttons
-        global botoes #variavel que pode ser usada por todo o programa
-        botoes = [[0]*3]*3 #lista dos botões disponíveis
+        global botoes
+        botoes = [[[0],[0],[0]],[[0],[0],[0]],[[0],[0],[0]]]
         for i in range(0, 3):
             for j in range(0, 3):
                 botoes[i][j] = tk.Button(self.window)
@@ -42,13 +42,13 @@ class Tabuleiro:
         global label1
         label1.configure(textvariable=conteudo_label)
     
-    def command_botao(self, posicao):
-        print(posicao)
-        return posicao
+    def command_botao(self, i):
+        print("Click", i)
         
     def iniciar(self):
         self.window.mainloop()
         
 tela = Tabuleiro()
 tela.gera_label("Legenda Teste")
+tela.gera_botoes((0,1), "X")
 tela.iniciar()

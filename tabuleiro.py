@@ -59,29 +59,14 @@ class Tabuleiro:
     #função mostra um pop-up com o vencedor. 
     #A função tem dois botões para isso: Novo Jogo --> reseta a tela e reinicia o jogo; Sair --> fecha todas as telas
     def mostra_vencedor_reset(self, resultado):
-        self.janela_resultado = tkm.showinfo(title="Resultado", text=resultado)
-        self.janela_resultado.geometry("200x180")
-        self.janela_resultado.resizable(0,0)
-        #define o grid da janela
-        self.janela_resultado.rowconfigure(0, minsize="100")
-        self.janela_resultado.rowconfigure(1, minsize="30")
-        self.janela_resultado.rowconfigure(2, minsize="30")
-        self.janela_resultado.columnconfigure(0, minsize="200")
-        #display do resultado como mensagem ao usuário
-        display_vencedor = tk.Message(self.janela_resultado, text=resultado, font="Verdana 10", justify="center")
-        display_vencedor.grid(row=0, column=0, sticky="nsew")
-        #gera o botão novo jogo: se apertado, reseta a tela e reinicia o jogo
-        self.botao_novo_jogo = tk.Button(self.janela_resultado, text="Novo Jogo", width=10, command=self.limpa_tela)
-        self.botao_novo_jogo.grid(row=1, column=0)
-        #gera o botão sair: se apertado, fecha tudo
-        botao_sair = tk.Button(self.janela_resultado, text="Sair", width=10, command=self.window.destroy)
-        botao_sair.grid(row=2, column=0)
+        self.janela_resultado = tkm.askquestion("Resultado", "{0}\nNovo Jogo?".format(resultado))
+        if self.janela_resultado == "yes":
+            self.limpa_tela()
+            
+        elif self.janela_resultado == "no": 
+            self.window.destroy()
 
-        # Coloca X no botão ao passar o mouse, e volta ao normal ao tirar o mouse        
-        botoes[0][0].bind("<Motion>", self.muda_para_letra)
-        botoes[0][0].bind("<Leave>", self.volta_normal)
     def limpa_tela(self): #reseta a tela
-        self.janela_resultado.destroy() #fecha a tela pop-up
         for i in range(0,3):
             for j in range(0,3):
                 tela.gera_botoes((i, j), "")
@@ -101,5 +86,9 @@ class Tabuleiro:
 tela = Tabuleiro()
 tela.gera_botoes((0,1), "X")
 tela.gera_label("Legenda Teste")
-tela.mostra_vencedor_reset("X"
+tela.mostra_vencedor_reset("X")
 tela.iniciar()
+
+#  # Coloca X no botão ao passar o mouse, e volta ao normal ao tirar o mouse        
+                #botoes[i][j].bind("<Motion>", self.muda_para_letra)
+                #botoes[i][j].bind("<Leave>", self.volta_normal)

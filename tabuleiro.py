@@ -4,9 +4,13 @@ Lucas Fontenla & Victor Hugo - Engenharia 1B
 EP3_JogoDaVelha
 """
 import tkinter as tk
+import tkinter.messagebox as tkm
+from Jogo_da_Velha import Jogo
 
 class Tabuleiro:
     def __init__(self):
+        self.meu_jogo = Jogo()
+
         #window
         self.window = tk.Tk()
         self.window.title("Jogo da Velha")
@@ -49,16 +53,16 @@ class Tabuleiro:
         label1.configure(textvariable=conteudo_label, anchor="w")
     
     #função que retorna para a classe jogo a posição do clique
-    def command_botao(object, i):
-        object.jogada = i 
+    def command_botao(self, i):
+        self.meu_jogo.recebe_jogada(i) 
 
     #função mostra um pop-up com o vencedor. 
     #A função tem dois botões para isso: Novo Jogo --> reseta a tela e reinicia o jogo; Sair --> fecha todas as telas
     def mostra_vencedor_reset(self, resultado):
-        self.janela_vencedor = tk.Toplevel()
-        self.janela_vencedor.resizable(0,0) #o pop up não pode ser redimensionado
-        self.janela_vencedor.title("Resultado")
-        self.janela_vencedor.geometry("200x180")
+
+        self.janela_resultado = tkm.showinfo(title="Resultado", text=resultado)
+        self.janela_resultado.geometry("200x180")
+        self.janela_resultado.resizable(0,0)
         #define o grid da janela
         self.janela_vencedor.rowconfigure(0, minsize="100")
         self.janela_vencedor.rowconfigure(1, minsize="30")
@@ -73,7 +77,7 @@ class Tabuleiro:
         #gera o botão sair: se apertado, fecha tudo
         botao_sair = tk.Button(self.janela_vencedor, text="Sair", width=10, command=self.window.destroy)
         botao_sair.grid(row=2, column=0)
-
+        """
     def limpa_tela(self): #reseta a tela
         self.janela_vencedor.destroy() #fecha a tela pop-up
         for i in range(0,3):
@@ -85,8 +89,8 @@ class Tabuleiro:
         self.window.mainloop()
 
 #teste das funções --> tirar o "#" para executar testes        
-#tela = Tabuleiro()
+tela = Tabuleiro()
 #tela.gera_botoes((0,1), "X")
 #tela.gera_label("Legenda Teste")
 #tela.mostra_vencedor_reset("X")
-#tela.iniciar()
+tela.iniciar()

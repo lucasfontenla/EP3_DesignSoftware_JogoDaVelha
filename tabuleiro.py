@@ -38,9 +38,9 @@ class Tabuleiro:
         label1.grid(row=3, column=0, columnspan=3, sticky="W")
     
     #função reponsável por adicionar a letra no botão e desabilitá-lo, para não haver jogada repetida        
-    def gera_botoes(self, posicao_tupla, letra):
+    def gera_botoes(self, posicao_tupla):
         conteudo_botao = tk.StringVar()
-        conteudo_botao.set(letra)
+        conteudo_botao.set(self.meu_jogo.proxima_jogada)
         global botoes
         botoes[posicao_tupla[0]][posicao_tupla[1]].config(textvariable=conteudo_botao,\
                 state="disabled") #após escrever, o botão é desabilitado
@@ -53,13 +53,15 @@ class Tabuleiro:
         label1.configure(textvariable=conteudo_label, anchor="w")
     
     #função que retorna para a classe jogo a posição do clique
-    def command_botao(self, i):
-        self.meu_jogo.recebe_jogada(i) 
+    def command_botao(self, posicao_tupla): 
+        self.gera_botoes(posicao_tupla)
+        self.meu_jogo.recebe_jogada(posicao_tupla)
 
     #função mostra um pop-up com o vencedor. 
     #A função tem dois botões para isso: Novo Jogo --> reseta a tela e reinicia o jogo; Sair --> fecha todas as telas
     def mostra_vencedor_reset(self, resultado):
         self.janela_resultado = tkm.askquestion("Resultado", "{0}\nNovo Jogo?".format(resultado))
+
         if self.janela_resultado == "yes":
             self.limpa_tela()
             
@@ -67,10 +69,10 @@ class Tabuleiro:
             self.window.destroy()
 
     def limpa_tela(self): #reseta a tela
+        self.meu_jogo.limpa_jogadas()
         for i in range(0,3):
             for j in range(0,3):
-                tela.gera_botoes((i, j), "")
-                botoes[i][j].config(state="normal") #todos os botões são reabilitados  
+                botoes[i][j].config(state="normal", text="") #todos os botões são reabilitados 
 
     def iniciar(self): #função que inicia o jogo
         self.window.mainloop()
@@ -84,8 +86,6 @@ class Tabuleiro:
 
 #teste das funções --> tirar o "#" para executar testes        
 tela = Tabuleiro()
-tela.gera_botoes((0,1), "X")
-tela.gera_label("Legenda Teste")
 tela.mostra_vencedor_reset("X")
 tela.iniciar()
 

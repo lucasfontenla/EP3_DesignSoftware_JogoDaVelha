@@ -11,7 +11,7 @@ class Tabuleiro:
         self.window = tk.Tk()
         self.window.title("Jogo da Velha")
         self.window.geometry("450x520")
-        self.window.resizable(0,0) #o usuário fica impossibilitado de mexer no tamanho da tela
+        self.window.resizable(False,False) #o usuário fica impossibilitado de mexer no tamanho da tela
         for k in range(0, 3): #gera as linhas e colunas números 0, 1 e 2
             self.window.rowconfigure(k, minsize=150)
             self.window.columnconfigure(k, minsize=150)
@@ -56,7 +56,7 @@ class Tabuleiro:
     #A função tem dois botões para isso: Novo Jogo --> reseta a tela e reinicia o jogo; Sair --> fecha todas as telas
     def mostra_vencedor_reset(self, resultado):
         self.janela_vencedor = tk.Toplevel()
-        self.janela_vencedor.resizable(0,0) #o pop up não pode ser redimensionado
+        self.janela_vencedor.resizable(False,False) #o pop up não pode ser redimensionado
         self.janela_vencedor.title("Resultado")
         self.janela_vencedor.geometry("200x180")
         #define o grid da janela
@@ -74,6 +74,10 @@ class Tabuleiro:
         botao_sair = tk.Button(self.janela_vencedor, text="Sair", width=10, command=self.window.destroy)
         botao_sair.grid(row=2, column=0)
 
+        # Coloca X no botão ao passar o mouse, e volta ao normal ao tirar o mouse        
+        botoes[0][0].bind("<Motion>", self.muda_para_letra)
+        botoes[0][0].bind("<Leave>", self.volta_normal)        
+        
     def limpa_tela(self): #reseta a tela
         self.janela_vencedor.destroy() #fecha a tela pop-up
         for i in range(0,3):
@@ -83,10 +87,17 @@ class Tabuleiro:
 
     def iniciar(self): #função que inicia o jogo
         self.window.mainloop()
+    
+    def muda_para_letra(self, event): # função que coloca o X
+        botoes[0][0].configure(text = "X")
+    
+    def volta_normal(self, event): # função que volta ao normal
+        tela.gera_botoes((0,0), "")
+        botoes[0][0].config(state="normal")
 
 #teste das funções --> tirar o "#" para executar testes        
-#tela = Tabuleiro()
-#tela.gera_botoes((0,1), "X")
-#tela.gera_label("Legenda Teste")
-#tela.mostra_vencedor_reset("X")
-#tela.iniciar()
+tela = Tabuleiro()
+tela.gera_botoes((0,1), "X")
+tela.gera_label("Legenda Teste")
+tela.mostra_vencedor_reset("X")
+tela.iniciar()

@@ -9,7 +9,7 @@ from Jogo_da_Velha import Jogo
 
 class Tabuleiro:
     def __init__(self):
-        self.meu_jogo = Jogo()
+        self.meu_jogo = Jogo() #criação do objeto jogo
 
         #window
         self.window = tk.Tk()

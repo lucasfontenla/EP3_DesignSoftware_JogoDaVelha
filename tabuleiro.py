@@ -20,7 +20,7 @@ class Tabuleiro:
             self.window.rowconfigure(k, minsize=150)
             self.window.columnconfigure(k, minsize=150)
         self.window.rowconfigure(3, minsize=40) #linha para display das jogadas
-        
+
         #buttons
         global botoes #todas as funçãoes tem acesso aos botões
         botoes = [[[0],[0],[0]],[[0],[0],[0]],[[0],[0],[0]]] #lista que armazena os botões
@@ -48,10 +48,9 @@ class Tabuleiro:
         global botoes
         botoes[posicao_tupla[0]][posicao_tupla[1]].config(textvariable=conteudo_botao,\
                 state="disabled") #após escrever, o botão é desabilitado
-    
+        self.gera_label("Próxima Jogada: {0}".format(self.meu_jogo.proxima_jogada))
     #função responsável por adicionar texto na label 
     def gera_label(self, display): 
-        display = self.meu_jogo.proxima_jogada # Registra a jogada da classe Jogo
         conteudo_label = tk.StringVar()
         conteudo_label.set(display)
         global label1
@@ -61,9 +60,17 @@ class Tabuleiro:
     def command_botao(self, posicao_tupla): 
         self.gera_botoes(posicao_tupla, False)
         self.meu_jogo.recebe_jogada(posicao_tupla)
-        if self.meu_jogo.ganhador == 1:
-            self.mostra_vencedor_reset(self.meu_jogo.ganhador)
 
+        resultado = self.meu_jogo.verifica_ganhador()
+
+        if resultado == -1:
+            pass
+        elif resultado == 0:
+            self.mostra_vencedor_reset("Empate")
+        elif resultado == 1:
+            self.mostra_vencedor_reset("Vitória do X")
+        elif resultado == 2:
+            self.mostra_vencedor_reset("Vitória do O")
     #função mostra um pop-up com o vencedor. 
     #A função tem dois botões para isso: Novo Jogo --> reseta a tela e reinicia o jogo; Sair --> fecha todas as telas
     def mostra_vencedor_reset(self, resultado):
@@ -92,7 +99,6 @@ class Tabuleiro:
         tela.gera_botoes((0,0), True)
         botoes[0][0].config(state="normal")
 
-#teste das funções --> tirar o "#" para executar testes        
 tela = Tabuleiro()
 tela.iniciar()
 

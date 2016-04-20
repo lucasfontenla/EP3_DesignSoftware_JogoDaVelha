@@ -8,18 +8,17 @@ EP3_JogoDaVelha
 import numpy as np #importa numpy para gerar a matrizes
 
 class Jogo:
-    def __init__(self):
-        global contador #contador de número de jogadas
-        contador = 0
-    
-        global tabuleiro_virtual
-        tabuleiro_virtual = np.zeros([3,3]) #gera o tabuleiro como uma matriz 3x3 de zeros
+	def __init__(self):
+		global contador #contador de número de jogadas
+		contador = 0
 
-        self.proxima_jogada = "X" #define a primeira jogada como "X"
-        self.ganhador = -1 #O valor -1 sempre prossegue o jogo até que haja um ganhador 
-        global linha, columa, diagonal
-           
-    def recebe_jogada(self, posicao_jogada_tupla): #função que recebe a jogada do tabuleiro
+		global tabuleiro_virtual
+		tabuleiro_virtual = np.zeros([3,3]) #gera o tabuleiro como uma matriz 3x3 de zeros
+
+		self.proxima_jogada = "X" #define a primeira jogada como "X"
+		self.ganhador = -1 #O valor -1 sempre prossegue o jogo até que haja um ganhador 
+
+	def recebe_jogada(self, posicao_jogada_tupla): #função que recebe a jogada do tabuleiro
 		
 		self.registra_jogada(posicao_jogada_tupla) #chama a função registra jogada para ser registrada na matriz
 
@@ -41,45 +40,38 @@ class Jogo:
 
 		global contador
 
-		print(tabuleiro_virtual)
-		if contador > 4: #só começa a avaliar o resultado se a número de jogadas for maior que 4, já que ninguém ganha o jogo com menos de 4 rodadas
-			self.verifica_ganhador() #chama a função que verifica ganhador
-
 	def verifica_ganhador(self): #SOMENTE PARA TESTE DAS FUÇÕES AIDANTE --> AINDA A CRIAR VERIFICAÇÃO FINAL DE GANHADOR
-		lista_de_zeros = list()
-		for i in tabuleiro_virtual:
-			for j in i:
-				if j == 0:
-					lista_de_zeros.append(j)
-				else:
-					pass
+		valores_resultados = list()
 
-		if lista_de_zeros.count(0) == 0:
-			self.limpa_jogadas()
-			self.ganhador = 1
+		add_valor_diagonal1 = 1
+		add_valor_diagonal2 = 1
 
+		for i in range(0, 3):
+			add_valor_linhas = 1
+			add_valor_colunas = 1
+
+			for j in range(0, 3):
+				add_valor_linhas *= tabuleiro_virtual[i][j]
+				add_valor_colunas *= tabuleiro_virtual[j][i]
+				
+			add_valor_diagonal1 *= tabuleiro_virtual[i][i]
+			add_valor_diagonal2 *= tabuleiro_virtual[i][(i*(-1)-1)]
+
+			valores_resultados.append(add_valor_linhas)
+			valores_resultados.append(add_valor_colunas)
+
+		valores_resultados.append(add_valor_diagonal1)
+		valores_resultados.append(add_valor_diagonal2)
+
+		if valores_resultados.count(1) > 0:
+			return 1
+		elif valores_resultados.count(8) > 0:
+			return 2	
+		elif valores_resultados.count(0) > 0:
+			return -1
 		else:
-			self.ganhador = -1
-           # Variáveis somatórias dos valores dos botões
-           linha = 0
-           coluna = 0
-           diagonal = 0
-           # Loops que adicionam valores dos botoes a uma variável
-           for i in range(0,3): 
-               for j in range(0,3):
-                   linhas += botoes[i][j]
-                   colunas += botoes[j][i]
-                   diagonais += botoes[i][i]
-           # Condições para ganhadores
-           if columns == 3 or linhas = 6:
-               # Ouve um Ganhador
-               # Return 1
-           if linhas == 3 or linhas = 6:
-               #Ouve Ganhador
-               # Return 1           
-           if diagonal == 3 or diagonal == 6:
-               #Ouve ganhador
-               # Return 1
+			return 0
+
 	def limpa_jogadas(self): #Função que reseta todo o tabuleiro
 		for i in range(0,3):
 			for j in range(0,3):

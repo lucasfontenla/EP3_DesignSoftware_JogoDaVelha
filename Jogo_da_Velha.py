@@ -8,17 +8,18 @@ EP3_JogoDaVelha
 import numpy as np #importa numpy para gerar a matrizes
 
 class Jogo:
-	def __init__(self):
-		global contador #contador de número de jogadas
-		contador = 0
+    def __init__(self):
+        global contador #contador de número de jogadas
+        contador = 0
+    
+        global tabuleiro_virtual
+        tabuleiro_virtual = np.zeros([3,3]) #gera o tabuleiro como uma matriz 3x3 de zeros
 
-		global tabuleiro_virtual
-		tabuleiro_virtual = np.zeros([3,3]) #gera o tabuleiro como uma matriz 3x3 de zeros
-
-		self.proxima_jogada = "X" #define a primeira jogada como "X"
-		self.ganhador = -1 #O valor -1 sempre prossegue o jogo até que haja um ganhador 
-
-	def recebe_jogada(self, posicao_jogada_tupla): #função que recebe a jogada do tabuleiro
+        self.proxima_jogada = "X" #define a primeira jogada como "X"
+        self.ganhador = -1 #O valor -1 sempre prossegue o jogo até que haja um ganhador 
+        global linha, columa, diagonal
+           
+    def recebe_jogada(self, posicao_jogada_tupla): #função que recebe a jogada do tabuleiro
 		
 		self.registra_jogada(posicao_jogada_tupla) #chama a função registra jogada para ser registrada na matriz
 
@@ -59,7 +60,26 @@ class Jogo:
 
 		else:
 			self.ganhador = -1
-
+           # Variáveis somatórias dos valores dos botões
+           linha = 0
+           coluna = 0
+           diagonal = 0
+           # Loops que adicionam valores dos botoes a uma variável
+           for i in range(0,3): 
+               for j in range(0,3):
+                   linhas += botoes[i][j]
+                   colunas += botoes[j][i]
+                   diagonais += botoes[i][i]
+           # Condições para ganhadores
+           if columns == 3 or linhas = 6:
+               # Ouve um Ganhador
+               # Return 1
+           if linhas == 3 or linhas = 6:
+               #Ouve Ganhador
+               # Return 1           
+           if diagonal == 3 or diagonal == 6:
+               #Ouve ganhador
+               # Return 1
 	def limpa_jogadas(self): #Função que reseta todo o tabuleiro
 		for i in range(0,3):
 			for j in range(0,3):

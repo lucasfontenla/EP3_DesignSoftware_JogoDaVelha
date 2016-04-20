@@ -26,21 +26,21 @@ class Jogo:
 		global contador
 		contador += 1 #adc 1 cada vez que há uma jogada
 
-		if contador % 2 == 0: #sempre que o númeoro for par, escreve "X"
-			self.jogada = "X"
+		if self.jogada == "X": #sempre que o númeoro for par, escreve "X"
 			self.proxima_jogada = "O"
-			
-		else:
-			self.jogada = "O"
+
+		elif self.jogada == "O":
 			self.proxima_jogada = "X"
 
 	def registra_jogada(self, posicao_jogada_tupla): #função responsável por registrar a jogada na matriz
 		if self.jogada == "X":
 			valor = 1
-		else:
+		elif self.jogada == "O":
 			valor = 2
 
 		tabuleiro_virtual[posicao_jogada_tupla[0]][posicao_jogada_tupla[1]] = valor
+
+		self.jogada = self.proxima_jogada
 
 		global contador
 
@@ -87,13 +87,13 @@ class Jogo:
 		global vencedor
 
 		if vencedor == "X":
-			contador = 0
+			self.jogada = "X"
 
 		elif vencedor == "O":
-			contador = 1
+			self.jogada = "O"
 
 		elif vencedor == -1: 
-			contador = contador // 2
+			self.jogada = self.proxima_jogada
 
 		for i in range(0,3):
 			for j in range(0,3):

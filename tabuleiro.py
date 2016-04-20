@@ -93,17 +93,6 @@ class Tabuleiro:
 
     def iniciar(self): #função que inicia o jogo
         self.window.mainloop()
-    
-    def muda_para_letra(self, event): # função que coloca o X
-        botoes[0][0].configure(text = "X")
-    
-    def volta_normal(self, event): # função que volta ao normal
-        tela.gera_botoes((0,0), True)
-        botoes[0][0].config(state="normal")
-
+        
 tela = Tabuleiro()
 tela.iniciar()
-
-#  # Coloca X no botão ao passar o mouse, e volta ao normal ao tirar o mouse        
-                #botoes[i][j].bind("<Motion>", self.muda_para_letra)
-                #botoes[i][j].bind("<Leave>", self.volta_normal)

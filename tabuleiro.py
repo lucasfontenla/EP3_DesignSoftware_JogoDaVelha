@@ -51,6 +51,7 @@ class Tabuleiro:
     
     #função responsável por adicionar texto na label 
     def gera_label(self, display): 
+        display = self.meu_jogo.proxima_jogada # Registra a jogada da classe Jogo
         conteudo_label = tk.StringVar()
         conteudo_label.set(display)
         global label1

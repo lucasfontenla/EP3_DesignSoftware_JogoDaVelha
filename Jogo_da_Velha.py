@@ -73,6 +73,8 @@ class Jogo:
 			return 0
 
 	def limpa_jogadas(self): #Função que reseta todo o tabuleiro
+		global contador
+		contador = contador // 2
 		for i in range(0,3):
 			for j in range(0,3):
 				tabuleiro_virtual[i][j] = 0

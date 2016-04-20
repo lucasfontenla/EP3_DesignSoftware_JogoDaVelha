@@ -36,12 +36,13 @@ class Tabuleiro:
         label1 = tk.Label(self.window) #cria a label de infos
         label1.configure(width=60, height=1)
         label1.grid(row=3, column=0, columnspan=3, sticky="W")
+        self.gera_label("Primeira Jogada: {0}".format(self.meu_jogo.jogada))
     
     #função reponsável por adicionar a letra no botão e desabilitá-lo, para não haver jogada repetida        
     def gera_botoes(self, posicao_tupla, limpar_botoes): #quando chamada a função limpar tela, ela usa a função gera botoes para resetar os botões
         conteudo_botao = tk.StringVar()
         if limpar_botoes == False:
-            conteudo_botao.set(self.meu_jogo.proxima_jogada) #se não foi chamada a função limpar tela, ele continua adicionando X/O
+            conteudo_botao.set(self.meu_jogo.jogada) #se não foi chamada a função limpar tela, ele continua adicionando X/O
         else:
             conteudo_botao.set("") #se foi chamada a função limpa tela, todos os botões são resetados
 
@@ -49,6 +50,7 @@ class Tabuleiro:
         botoes[posicao_tupla[0]][posicao_tupla[1]].config(textvariable=conteudo_botao,\
                 state="disabled") #após escrever, o botão é desabilitado
         self.gera_label("Próxima Jogada: {0}".format(self.meu_jogo.proxima_jogada))
+
     #função responsável por adicionar texto na label 
     def gera_label(self, display): 
         conteudo_label = tk.StringVar()
@@ -71,19 +73,19 @@ class Tabuleiro:
             self.mostra_vencedor_reset("Vitória do X")
         elif resultado == 2:
             self.mostra_vencedor_reset("Vitória do O")
+
     #função mostra um pop-up com o vencedor. 
     #A função tem dois botões para isso: Novo Jogo --> reseta a tela e reinicia o jogo; Sair --> fecha todas as telas
     def mostra_vencedor_reset(self, resultado):
         self.janela_resultado = tkm.askquestion("Resultado", "{0}\nNovo Jogo?".format(resultado)) #criaçaão da tela pop up
+        
+        self.meu_jogo.limpa_jogadas()
+        self.limpa_tela()
 
-        if self.janela_resultado == "yes": #caso o clique na tela pop up seja sim, reseta o jogo e reinicia
-            self.limpa_tela()
-            
-        elif self.janela_resultado == "no": #caso o clique seja não, o jogo fecha
+        if self.janela_resultado == "no": #caso o clique seja não, o jogo fecha
             self.window.destroy()
 
     def limpa_tela(self): #reseta a tela
-        self.meu_jogo.limpa_jogadas()
         for i in range(0,3):
             for j in range(0,3):
                 self.gera_botoes((i,j), True) #True para resetar os botoes em gera_botoes

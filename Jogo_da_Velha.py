@@ -15,7 +15,8 @@ class Jogo:
 		global tabuleiro_virtual
 		tabuleiro_virtual = np.zeros([3,3]) #gera o tabuleiro como uma matriz 3x3 de zeros
 
-		self.proxima_jogada = "X" #define a primeira jogada como "X"
+		self.jogada = "X" #define a primeira jogada como "X"
+		self.proxima_jogada = "O"
 		self.ganhador = -1 #O valor -1 sempre prossegue o jogo até que haja um ganhador 
 
 	def recebe_jogada(self, posicao_jogada_tupla): #função que recebe a jogada do tabuleiro
@@ -26,12 +27,15 @@ class Jogo:
 		contador += 1 #adc 1 cada vez que há uma jogada
 
 		if contador % 2 == 0: #sempre que o númeoro for par, escreve "X"
-			self.proxima_jogada = "X"
-		else:
+			self.jogada = "X"
 			self.proxima_jogada = "O"
+			
+		else:
+			self.jogada = "O"
+			self.proxima_jogada = "X"
 
 	def registra_jogada(self, posicao_jogada_tupla): #função responsável por registrar a jogada na matriz
-		if self.proxima_jogada == "X":
+		if self.jogada == "X":
 			valor = 1
 		else:
 			valor = 2
@@ -42,6 +46,9 @@ class Jogo:
 
 	def verifica_ganhador(self): #SOMENTE PARA TESTE DAS FUÇÕES AIDANTE --> AINDA A CRIAR VERIFICAÇÃO FINAL DE GANHADOR
 		valores_resultados = list()
+
+		global vencedor
+		vencedor = 0
 
 		add_valor_diagonal1 = 1
 		add_valor_diagonal2 = 1
@@ -64,17 +71,30 @@ class Jogo:
 		valores_resultados.append(add_valor_diagonal2)
 
 		if valores_resultados.count(1) > 0:
+			vencedor = "X"
 			return 1
 		elif valores_resultados.count(8) > 0:
+			vencedor = "O"
 			return 2	
 		elif valores_resultados.count(0) > 0:
 			return -1
 		else:
+			vencedor = 0
 			return 0
 
 	def limpa_jogadas(self): #Função que reseta todo o tabuleiro
 		global contador
-		contador = contador // 2
+		global vencedor
+
+		if vencedor == "X":
+			contador = 0
+
+		elif vencedor == "O":
+			contador = 1
+
+		elif vencedor == -1: 
+			contador = contador // 2
+
 		for i in range(0,3):
 			for j in range(0,3):
 				tabuleiro_virtual[i][j] = 0

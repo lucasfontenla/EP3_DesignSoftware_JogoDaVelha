@@ -90,9 +90,10 @@ class Tabuleiro:
             for j in range(0,3):
                 self.gera_botoes((i,j), True) #True para resetar os botoes em gera_botoes
                 botoes[i][j].config(state="normal") #todos os botões são reabilitados 
+        self.gera_label("Primeira Jogada: {0}".format(self.meu_jogo.jogada)) #reseta a label para a primeira jogada
 
     def iniciar(self): #função que inicia o jogo
         self.window.mainloop()
-        
+
 tela = Tabuleiro()
 tela.iniciar()

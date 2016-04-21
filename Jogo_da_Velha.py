@@ -41,6 +41,7 @@ class Jogo:
 		tabuleiro_virtual[posicao_jogada_tupla[0]][posicao_jogada_tupla[1]] = valor
 
 		self.jogada = self.proxima_jogada
+
 		global contador
 
 	def verifica_ganhador(self): #SOMENTE PARA TESTE DAS FUÇÕES AIDANTE --> AINDA A CRIAR VERIFICAÇÃO FINAL DE GANHADOR
@@ -86,19 +87,19 @@ class Jogo:
 
 		if vencedor == "X":
 			self.jogada = "X"
-			contador = 0 
-		
+			self.proxima_jogada = "O"
+
 		elif vencedor == "O":
 			self.jogada = "O"
-			contador = 1
-		
+			self.proxima_jogada = "X"
+
 		elif vencedor == -1: 
 			self.jogada = self.proxima_jogada
 			if self.jogada == "X":
 				self.proxima_jogada = "O"
 			else:
 				self.proxima_jogada = "X"
-				
+
 		for i in range(0,3):
 			for j in range(0,3):
 				tabuleiro_virtual[i][j] = 0

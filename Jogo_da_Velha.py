@@ -18,10 +18,6 @@ class Jogo:
 		self.jogada = "X" #define a primeira jogada como "X"
 		self.proxima_jogada = "O"
 		self.ganhador = -1 #O valor -1 sempre prossegue o jogo até que haja um ganhador 
-
-		# Listas para o placar
-		listaX = []
-		listaO = []
 		
 	def recebe_jogada(self, posicao_jogada_tupla): #função que recebe a jogada do tabuleiro
 		
@@ -45,9 +41,7 @@ class Jogo:
 		tabuleiro_virtual[posicao_jogada_tupla[0]][posicao_jogada_tupla[1]] = valor
 
 		self.jogada = self.proxima_jogada
-
-		global contador
-
+		
 	def verifica_ganhador(self): #SOMENTE PARA TESTE DAS FUÇÕES AIDANTE --> AINDA A CRIAR VERIFICAÇÃO FINAL DE GANHADOR
 		valores_resultados = list()
 

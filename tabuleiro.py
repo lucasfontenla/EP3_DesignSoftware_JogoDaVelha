@@ -70,8 +70,12 @@ class Tabuleiro:
         elif resultado == 0:
             self.mostra_vencedor_reset("Empate")
         elif resultado == 1:
+            global listaX
+            ap_listaX(self)
             self.mostra_vencedor_reset("Vitória do X")
         elif resultado == 2:
+            global listaO
+            ap_listaO()
             self.mostra_vencedor_reset("Vitória do O")
 
     #função mostra um pop-up com o vencedor. 
@@ -97,11 +101,48 @@ class Tabuleiro:
 
 class Placar:
     def __init__(self):
+        self.meu_jogo = Jogo() #criação do objeto jogo
+
         self.placar = tk.Tk()
+        
         # Design do placar
-        self.placar.title("Resultado dos Jogos")
-        self.placar.geometry("100x200")
+        self.placar.title("Resultado Final")
+        self.placar.geometry("250x300")
         self.placar.resizable(False,False)
+
+        #Label
+        global label_placar
+        label_placar = tk.Label(self.placar, fg = "red")
+        label_placar.configure(width = 200, height = 250)
+        self.placar.rowconfigure(0, minsize=150, weight=1)
+        self.placar.columnconfigure(0, minsize=150, weight=1)
+        label_placar.grid()
+
+    def conteudo_Label(self, a, b):
+        conteudoLabel = tk.StringVar()
+        conteudoLabel.set("Pontos do jogador X: {0} \nPontos do jogador O: {1}".format(a, b))
+        global label_placar
+        label_placar.config(textvariable = conteudoLabel)
+    
+    def iniciar(self):
+        self.conteudo_Label(len(listaX),len(listaO))
+        self.placar.mainloop()
+
+global listaX
+global listaO
+listaX = []
+listaO = []
+
+def ap_listaX(self):
+    global listaX
+    listaX.append("Resp")
+
+def ap_listaO(self):
+    global listaO
+    listaO.append("Resp")
 
 tela = Tabuleiro()
 tela.iniciar()
+
+p = Placar()
+p.iniciar()

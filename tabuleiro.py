@@ -95,5 +95,13 @@ class Tabuleiro:
     def iniciar(self): #função que inicia o jogo
         self.window.mainloop()
 
+class Placar:
+    def __init__(self):
+        self.placar = tk.Tk()
+        # Design do placar
+        self.placar.title("Resultado dos Jogos")
+        self.placar.geometry("100x200")
+        self.placar.resizable(False,False)
+
 tela = Tabuleiro()
 tela.iniciar()

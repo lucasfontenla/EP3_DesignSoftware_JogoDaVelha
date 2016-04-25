@@ -19,6 +19,10 @@ class Jogo:
 		self.proxima_jogada = "O"
 		self.ganhador = -1 #O valor -1 sempre prossegue o jogo até que haja um ganhador 
 
+		# Listas para o placar
+		listaX = []
+		listaO = []
+		
 	def recebe_jogada(self, posicao_jogada_tupla): #função que recebe a jogada do tabuleiro
 		
 		self.registra_jogada(posicao_jogada_tupla) #chama a função registra jogada para ser registrada na matriz

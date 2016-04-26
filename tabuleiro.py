@@ -143,6 +143,5 @@ def ap_listaO(self):
 
 tela = Tabuleiro()
 tela.iniciar()
-
 p = Placar()
 p.iniciar()

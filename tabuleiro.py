@@ -75,7 +75,7 @@ class Tabuleiro:
             self.mostra_vencedor_reset("Vitória do X")
         elif resultado == 2:
             global listaO
-            ap_listaO()
+            ap_listaO(self)
             self.mostra_vencedor_reset("Vitória do O")
 
     #função mostra um pop-up com o vencedor. 
@@ -128,17 +128,13 @@ class Placar:
         self.conteudo_Label(len(listaX),len(listaO))
         self.placar.mainloop()
 
-global listaX
-global listaO
 listaX = []
 listaO = []
 
 def ap_listaX(self):
-    global listaX
     listaX.append("Resp")
 
 def ap_listaO(self):
-    global listaO
     listaO.append("Resp")
 
 tela = Tabuleiro()

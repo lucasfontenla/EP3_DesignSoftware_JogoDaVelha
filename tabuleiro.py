@@ -128,6 +128,58 @@ class Placar:
         self.conteudo_Label(len(listaX),len(listaO))
         self.placar.mainloop()
 
+class Pergunta_Jogador:
+    def __init__(self):
+        
+        self.pergunta = tk.Tk() # Criação da janela pergunta
+        
+        # Interfase do placar
+        self.pergunta.title("Resultado Final")
+        self.pergunta.geometry("350x210")
+        self.pergunta.resizable(False,False)
+        self.pergunta.rowconfigure(0, minsize=70, weight=1)
+        self.pergunta.rowconfigure(1,minsize=70, weight=1)
+        self.pergunta.rowconfigure(2,minsize=70, weight=1)
+        self.pergunta.columnconfigure(0, minsize=175, weight=1)
+        self.pergunta.columnconfigure(1, minsize=175, weight=1)
+        
+        # Propriedades dos Label's
+        label_jogX = tk.Label(self.pergunta)
+        label_jogX.configure(width = 10, height = 10)
+        label_jogX.configure(text= "Jogador X:", fg= "Red")
+        label_jogX.grid(row=0, column=0, sticky="NSEW")
+
+        label_jogO = tk.Label(self.pergunta)
+        label_jogO.configure(width = 10, height = 10)
+        label_jogO.configure(text= "Jogador O:", fg= "Red")
+        label_jogO.grid(row=0, column=1, sticky="NSEW")
+
+
+        # Caixas de texto
+        self.conteudo_ctX = tk.StringVar()
+        caixa_textoX = tk.Entry(self.pergunta)
+        caixa_textoX.configure(textvariable= self.conteudo_ctX)
+        caixa_textoX.grid(row=1, column=0, padx=20, sticky="ew")
+        
+        self.conteudo_ctO = tk.StringVar()
+        caixa_textoO = tk.Entry(self.pergunta)
+        caixa_textoO.configure(textvariable=self.conteudo_ctO)
+        caixa_textoO.grid(row=1, column=1, padx=20, sticky="ew")
+
+        # Botão
+        botão = tk.Button(self.pergunta)
+        botão.configure(text="Enter")
+        botão.configure(command= self.apertou_botao)
+        botão.grid(row=2, column=0, columnspan=2)
+        botão.configure(width=10, height=3)
+        
+    def apertou_botao(self):
+        print("Oi")
+        self.pergunta.destroy()
+
+    def iniciar_pr(self):
+        self.pergunta.mainloop()
+
 listaX = []
 listaO = []
 
@@ -137,6 +189,8 @@ def ap_listaX(self):
 def ap_listaO(self):
     listaO.append("Resp")
 
+pr = Pergunta_Jogador()
+pr.iniciar_pr()
 tela = Tabuleiro()
 tela.iniciar()
 p = Placar()

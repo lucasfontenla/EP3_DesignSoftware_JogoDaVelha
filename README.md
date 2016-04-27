@@ -4,6 +4,8 @@ EP3 de design de software - ENGENHARIA B
 
 Alunos: Lucas Fontenla & Victor Hugo Leal
 
+
+
 Observação Final:
 
 Os dois arquivos fora do diretório "Desenvolvimentos Extras" são o básico do solicitado para a entrega do EP3. Abrir o arquivo tabuleiro.py para rodar o jogo.
